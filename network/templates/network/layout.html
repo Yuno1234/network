@@ -1,0 +1,91 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}Social Network{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'network/styles.css' %}" rel="stylesheet">
+        {% block head %}{% endblock %}
+    </head>
+
+    <body>
+    <input type="hidden" id="is-authorized" value="{{ user.is_authenticated }}">
+    <div class="custom-container">
+        <div class="row">
+            <nav class="sidebar">
+                <div class="sticky-top">
+                <ul class="nav flex-column">    
+                    <a id="twitter-icon" class="nav-link" href="{% url 'index' %}" style="padding-left:10px;"><img src="{% static 'network/image/twitter_icon.png' %}" alt="" style="height: 50px;"></a>
+                    {% if not user.is_authenticated%}
+                        <li class="nav-item">
+                            <a href="{% url 'index' %}" style="text-decoration: none;">
+                            <button id="all-posts" class="">
+                                <img src="{% static 'network/image/home_icon.png' %}" alt="" style="height: 25px;">
+                                <span>All Posts</span>
+                            </button>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <button id="all-posts" class="">
+                                <img src="{% static 'network/image/home_icon.png' %}" alt="" style="height: 25px;">
+                                <span>All Posts</span>
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button id="following" class="">
+                                <img src="{% static 'network/image/hash_icon.png' %}" alt="" style="height: 25px;">
+                                <span>Following</span>
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button id="notifications" class="">
+                                <img src="{% static 'network/image/bell_icon.png' %}" alt="" style="height: 25px;">
+                                <span>Notifications</span>
+                            </button>  
+                        </li>
+                        <li class="nav-item">
+                            <button id="messages" class="">
+                                <img src="{% static 'network/image/message_icon.png' %}" alt="" style="width: 25px;">
+                                <span>Messages</span>
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button id="profile" class="" data-user="{{ user.username }}">
+                                <img src="{% static 'network/image/profile_icon.png' %}" alt="" style="height: 25px;">
+                                <span>Profile</span>
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                </div>
+            </nav>
+
+            <main class="p-0">
+                {% block body %}
+                {% endblock %}
+            </main>
+
+            <aside>
+                {% if not user.is_authenticated %}
+                <div class="login-register-links">
+                    <h3>See what's happening in the world right now</h4>
+                    <p><strong>Join Twitter today</strong></p>
+                    <a class="nav-link register-button" href="{% url 'register' %}"><strong>Sign up</strong></a>
+                    <a class="nav-link login-button" href="{% url 'login' %}"><strong>Log In</strong></a>
+                </div>
+                {% endif %}
+            </aside>
+        </div>
+    </div>
+        
+        
+        
+        
+    </body>
+</html>
