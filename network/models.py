@@ -4,20 +4,6 @@ from django.utils import timezone
 
 
 class User(AbstractUser):
-    """
-    Superuser
-        Username: Yunosuke
-        Email address: arakawayunosuke1@gmail.com
-        Password: yuno0606  
-
-    User
-        yuno: 0606
-        shun: 0224
-        tai: 0501
-        will: 1023
-        anna: 0725
-        myah: 0815
-    """
     pass
     
 class Profile(models.Model):
